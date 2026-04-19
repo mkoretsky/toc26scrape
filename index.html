@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PF Corpus Browser</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header>
+    <h1>PF Corpus</h1>
+    <span id="total-docs"></span>
+    <div class="controls">
+      <label>side
+        <select id="side-filter">
+          <option value="all">all</option>
+          <option value="pro">pro</option>
+          <option value="con">con</option>
+        </select>
+      </label>
+      <label>role
+        <select id="role-filter">
+          <option value="all">both</option>
+          <option value="main">main</option>
+          <option value="response">response</option>
+        </select>
+      </label>
+      <label>div
+        <select id="division-filter">
+          <option value="all">all</option>
+          <option value="gold">gold</option>
+          <option value="silver">silver</option>
+        </select>
+      </label>
+      <button id="sort-btn" title="toggle sort: team ↔ record">⇅ team</button>
+      <input id="search" type="search" placeholder="filter docs…">
+    </div>
+  </header>
+  <main>
+    <nav id="tree">
+      <div id="tree-controls">
+        <button id="show-all" title="clear tag filter, show all docs">show all</button>
+        <button id="toggle-all" title="collapse / expand all categories">⇅</button>
+      </div>
+      <div id="tree-body"></div>
+    </nav>
+    <section id="docs">
+      <div id="doc-header" class="muted">Loading…</div>
+      <ul id="doc-list"></ul>
+    </section>
+  </main>
+  <script src="./app.js"></script>
+</body>
+</html>

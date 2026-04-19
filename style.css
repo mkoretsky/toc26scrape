@@ -1,0 +1,148 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; font-family: -apple-system, system-ui, "Segoe UI", sans-serif; color: #222; background: #fafafa; }
+body { display: flex; flex-direction: column; height: 100vh; }
+
+header {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 0.6rem 1rem; background: #2b2b2b; color: #eee; border-bottom: 1px solid #000;
+}
+header h1 { font-size: 1rem; margin: 0; font-weight: 600; letter-spacing: 0.02em; }
+header #total-docs { font-size: 0.8rem; color: #aaa; }
+header .controls { margin-left: auto; display: flex; gap: 0.6rem; align-items: center; }
+header label { font-size: 0.78rem; color: #bbb; display: flex; gap: 0.35rem; align-items: center; }
+header select, header input {
+  background: #3a3a3a; color: #eee; border: 1px solid #555;
+  padding: 0.2rem 0.4rem; border-radius: 3px; font-size: 0.8rem;
+}
+header input { min-width: 200px; }
+header button#sort-btn {
+  background: #3a3a3a; color: #eee; border: 1px solid #555;
+  padding: 0.25rem 0.6rem; border-radius: 3px; font-size: 0.78rem;
+  cursor: pointer;
+}
+header button#sort-btn:hover { background: #4a4a4a; }
+
+main { flex: 1; display: flex; overflow: hidden; }
+
+nav#tree {
+  width: 280px; flex-shrink: 0;
+  display: flex; flex-direction: column;
+  background: #f0f0f0; border-right: 1px solid #ddd;
+  font-size: 0.85rem;
+}
+nav #tree-controls {
+  display: flex; gap: 0.3rem; padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid #d8d8d8; background: #e8e8e8;
+}
+nav #tree-controls button {
+  font-size: 0.75rem; padding: 0.2rem 0.55rem;
+  background: #fff; color: #333; border: 1px solid #ccc;
+  border-radius: 3px; cursor: pointer;
+}
+nav #tree-controls button:hover { background: #1976d2; color: #fff; border-color: #1976d2; }
+nav #tree-controls #show-all { flex: 1; }
+nav #tree-controls #toggle-all { width: 32px; font-size: 0.9rem; }
+nav #tree-body { flex: 1; overflow-y: auto; padding: 0.3rem 0; }
+nav .category {
+  padding: 0.35rem 0.8rem; cursor: pointer;
+  font-weight: 600; text-transform: uppercase; font-size: 0.7rem; color: #555;
+  letter-spacing: 0.03em;
+  user-select: none;
+}
+nav .category:hover { background: #e6e6e6; }
+nav .category .chev { display: inline-block; width: 0.9em; color: #888; transition: transform 0.1s; }
+nav .category.collapsed .chev { transform: rotate(-90deg); }
+nav .category.collapsed + .tags { display: none; }
+nav .tags { padding: 0; margin: 0; list-style: none; }
+nav .tag {
+  padding: 0.25rem 0.8rem 0.25rem 1.8rem;
+  cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+  color: #333;
+}
+nav .tag:hover { background: #e0e0e0; }
+nav .tag.active { background: #1976d2; color: #fff; }
+nav .tag.active .count { color: #cfe3ff; }
+nav .tag .count { color: #888; font-size: 0.75rem; font-variant-numeric: tabular-nums; }
+
+section#docs { flex: 1; overflow: hidden; display: flex; flex-direction: column; background: #fff; }
+#doc-header {
+  padding: 0.55rem 1rem; border-bottom: 1px solid #e5e5e5;
+  font-size: 0.9rem; background: #fafafa;
+}
+#doc-header.muted { color: #888; }
+#doc-header strong { color: #1976d2; }
+
+ul#doc-list { flex: 1; overflow-y: auto; margin: 0; padding: 0; list-style: none; }
+li.doc {
+  padding: 0.55rem 1rem; border-bottom: 1px solid #eee;
+  display: grid;
+  grid-template-columns: 2fr 50px 52px 2.2fr 80px;
+  gap: 0.8rem; align-items: center;
+  font-size: 0.85rem;
+}
+li.doc:hover { background: #f5f9ff; }
+li.doc .team { font-weight: 500; }
+li.doc .side {
+  padding: 1px 6px; border-radius: 3px; font-size: 0.72rem; text-align: center;
+  font-weight: 600; text-transform: uppercase;
+}
+li.doc .side.pro { background: #d4edda; color: #155724; }
+li.doc .side.con { background: #f8d7da; color: #721c24; }
+li.doc .side.unknown { background: #e5e5e5; color: #555; }
+li.doc .meta { color: #555; font-size: 0.8rem; }
+li.doc .open,
+li.doc a.open {
+  display: inline-block; text-align: center;
+  padding: 0.25rem 0.6rem; background: #1976d2; color: #fff; border: 0;
+  border-radius: 3px; cursor: pointer; font-size: 0.78rem;
+  text-decoration: none; font-family: inherit;
+}
+li.doc .open:hover { background: #1565c0; color: #fff; }
+li.doc .open:active { background: #0d47a1; }
+li.doc .open.disabled { background: #ccc; color: #666; cursor: default; }
+
+/* Record badge */
+.record {
+  display: inline-block; min-width: 36px; text-align: center;
+  padding: 2px 6px; border-radius: 3px;
+  font-size: 0.72rem; font-weight: 700;
+  font-variant-numeric: tabular-nums; letter-spacing: 0.02em;
+  border: 1px solid transparent;
+}
+.record.none { background: transparent; border-color: #e0e0e0; color: #bbb; }
+.record.none::before { content: "—"; }
+.record.gold { background: #fff3b0; color: #6b4700; border-color: #e6c15a; }
+.record.gold.w7 { background: #ffd500; color: #3a2900; border-color: #b88a00; }
+.record.gold.w6 { background: #ffe066; color: #4a3300; }
+.record.gold.w5 { background: #ffeb99; color: #5a3f00; }
+.record.gold.w4 { background: #fff3b0; color: #6b4700; }
+.record.gold.w3 { background: #fff8cc; color: #7a5500; border-color: #e8d27a; }
+.record.gold.w2, .record.gold.w1 { background: #fffae6; color: #8a6b0f; border-color: #e8d9a0; }
+.record.silver { background: #e0e0e0; color: #333; border-color: #b0b0b0; }
+.record.silver.w7 { background: #b0b0b0; color: #111; border-color: #7a7a7a; }
+.record.silver.w6 { background: #c4c4c4; color: #222; }
+.record.silver.w5 { background: #d0d0d0; color: #2a2a2a; }
+.record.silver.w4 { background: #dcdcdc; color: #333; }
+.record.silver.w3 { background: #e8e8e8; color: #444; }
+.record.silver.w2, .record.silver.w1 { background: #f0f0f0; color: #666; }
+
+li.doc .tags-line { grid-column: 1 / -1; margin-top: 0.25rem; font-size: 0.72rem; color: #666; }
+li.doc .tag-chip {
+  display: inline-block; background: #eef; color: #445; padding: 0 5px; margin: 1px 3px 1px 0;
+  border-radius: 2px; cursor: pointer;
+}
+li.doc .tag-chip.response { background: #fef3f3; color: #855; }
+li.doc .tag-chip:hover { background: #1976d2; color: #fff; }
+
+li.doc .detail-toggle {
+  display: inline-block; cursor: pointer; color: #1976d2;
+  font-weight: 700; margin-left: 0.3rem; user-select: none;
+}
+li.doc .detail-toggle:hover { color: #0d47a1; }
+li.doc .detail { grid-column: 1 / -1; display: none; margin: 0.25rem 0 0 0; padding: 0.5rem 0.7rem;
+  background: #f6f9fd; border-left: 2px solid #1976d2; border-radius: 2px;
+  font-size: 0.8rem; color: #333; line-height: 1.4;
+}
+li.doc.show-detail .detail { display: block; }
+li.doc .detail-scenario { margin-bottom: 0.25rem; }
+li.doc .detail b { color: #1976d2; font-weight: 600; }

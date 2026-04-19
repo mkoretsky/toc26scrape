@@ -1,0 +1,29 @@
+# Never commit unencrypted data to a public repo.
+# These hold every doc, every tag, every Drive link in plaintext —
+# publishing them defeats the point of staticrypt.
+# Leading slash anchors the pattern to the repo root so the ENCRYPTED
+# protected/bundled.html is still committable.
+/data.json
+/bundled.html
+
+# staticrypt output. Commit this if GitHub Pages serves from protected/;
+# otherwise leave ignored.
+# protected/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# virtualenvs
+venv/
+.venv/
+env/
